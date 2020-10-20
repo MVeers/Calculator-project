@@ -1,11 +1,11 @@
-import _tkinter
 from Tkinter import *
-
 # globally declare the expression variable
+import Calculate
+
 expression = ""
 
 
-# Function to update expressiom
+# Function to update expression
 # in the text entry box
 def press(num):
     # point out the global expression variable
@@ -29,14 +29,11 @@ def equalpress():
     try:
         global expression
 
-        # eval function evaluate the expression
-        # and str function convert the result
-        # into string
-        total = str(eval(expression))
-
+        # calculate
+        c = Calculate.Calculate(expression)
+        total = str(c.process())
         equation.set(total)
-
-        # initialze the expression variable
+        # reinitialze the expression variable
         # by empty string
         expression = ""
 
