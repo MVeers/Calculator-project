@@ -10,7 +10,6 @@ expression = ""
 def press(num):
     # point out the global expression variable
     global expression
-
     # concatenation of string
     expression = expression + str(num)
 
@@ -43,6 +42,7 @@ def equalpress():
         expression = ""
 
     # Function to clear the contents
+
 
 # of text entry box
 def clear():
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     button8.grid(row=4, column=1)
 
     button9 = Button(gui, text=' 9 ', fg='black', bg='red',
-                     command=lambda: press(9), height=1, width=7)
+                     command=lambda: press(" 9 "), height=1, width=7)
     button9.grid(row=4, column=2)
 
     button0 = Button(gui, text=' 0 ', fg='black', bg='red',
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     minus.grid(row=3, column=3)
 
     multiply = Button(gui, text=' * ', fg='black', bg='red',
-                      command=lambda: press("*"), height=1, width=7)
+                      command=lambda: press(" * "), height=1, width=7)
     multiply.grid(row=4, column=3)
 
     divide = Button(gui, text=' / ', fg='black', bg='red',
