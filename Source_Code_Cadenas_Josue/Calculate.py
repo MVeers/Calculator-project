@@ -61,7 +61,81 @@ class Calculate:
     def __init__(self, expression):
         self.expression = expression
 
+    # operator functions
+    def add(self, a, b):
+        c = float(a) + float(b)
+        return c
+
+    def sub(self, a, b):
+        c = float(b) - float(a)
+        return c
+
+    def sub(self, a):
+        return -float(a)
+
+    def mult(self, a, b):
+        c = float(a) * float(b)
+        return c
+
+    def divide(self, a, b):
+        if a == '0':
+            return "error"
+        else:
+            c = float(b) / float(a)
+            return c
+
+    def power(self, a, b):
+        c = float(a) ** float(b)
+        return c
+
+    # processing
+    def outProcess(self, output):
+        try:
+            total = 0
+            stack = []
+            num1 = 0
+            num2 = 0
+            for token in output:
+                if token.isalnum():
+                    stack.append(token)
+                elif token in self.ops and peek(stack) in self.ops:
+                    return "error"
+                elif token == '-' and len(stack) == 1:
+                    num1 = pop(stack)
+                    total = self.sub(num1)
+                    stack.append(total)
+                elif token == '-':
+                    num1 = pop(stack)
+                    num2 = pop(stack)
+                    total = self.sub(num1, num2)
+                    stack.append(total)
+                elif token == '+':
+                    num1 = pop(stack)
+                    num2 = pop(stack)
+                    total = self.add(num1, num2)
+                    stack.append(total)
+                elif token == '*':
+                    num1 = pop(stack)
+                    num2 = pop(stack)
+                    total = self.mult(num1, num2)
+                    stack.append(total)
+                elif token == '/':
+                    num1 = pop(stack)
+                    num2 = pop(stack)
+                    total = self.divide(num1, num2)
+                    stack.append(total)
+                elif token == '^':
+                    num1 = pop(stack)
+                    num2 = pop(stack)
+                    total = self.power(num1, num2)
+                    stack.append(total)
+            return total
+        except:
+            return "error"
+    # main shunting yard algorithm
+
     def process(self):
+        total = 0
         while True:
             try:
                 stack = []
@@ -89,10 +163,12 @@ class Calculate:
                 while not isEmpty(stack):
                     output.append(pop(stack))
                 print output
+                total = self.outProcess(output)
+                print total
                 break
             except EOFError:
                 break
             except:
                 print('error')
-
-        return eval(self.expression)
+                break
+        return total
