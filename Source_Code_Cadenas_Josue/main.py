@@ -63,7 +63,7 @@ if __name__ == "__main__":
     gui.title("Josue's Calculator")
 
     # set the configuration of GUI window
-    gui.geometry("270x150")
+    gui.geometry("270x180")
 
     # StringVar() is the variable class
     # we create an instance of this class
@@ -144,9 +144,21 @@ if __name__ == "__main__":
                     command=lambda: press(" ^ "), height=1, width=7)
     divide.grid(row=6, column=3)
 
+    divide = Button(gui, text=' sin ', fg='black', bg='white',
+                    command=lambda: press(" sin "), height=1, width=7)
+    divide.grid(row=6, column=0)
+
+    divide = Button(gui, text=' cos ', fg='black', bg='white',
+                    command=lambda: press(" cos "), height=1, width=7)
+    divide.grid(row=6, column=1)
+
+    divide = Button(gui, text=' tan ', fg='black', bg='white',
+                    command=lambda: press(" cos "), height=1, width=7)
+    divide.grid(row=6, column=2)
+
     equal = Button(gui, text=' = ', fg='black', bg='white',
                    command=equalpress, height=1, width=7)
-    equal.grid(row=5, column=2)
+    equal.grid(row=7, column=3)
 
     clear = Button(gui, text='Clear', fg='black', bg='white',
                    command=clear, height=1, width=7)
@@ -154,6 +166,16 @@ if __name__ == "__main__":
 
     Decimal = Button(gui, text='.', fg='black', bg='white',
                      command=lambda: press('.'), height=1, width=7)
-    Decimal.grid(row=6, column=0)
+    Decimal.grid(row=5, column=2)
+
+    Decimal = Button(gui, text=' ( ', fg='black', bg='white',
+                     command=lambda: press(' ( '), height=1, width=7)
+    Decimal.grid(row=7, column=0)
+
+    Decimal = Button(gui, text=' ) ', fg='black', bg='white',
+                     command=lambda: press(' ) '), height=1, width=7)
+    Decimal.grid(row=7, column=2)
+
+
     # start the GUI
     gui.mainloop()

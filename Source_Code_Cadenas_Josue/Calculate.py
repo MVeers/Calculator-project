@@ -1,4 +1,3 @@
-import collections
 import math
 
 
@@ -70,8 +69,8 @@ class Calculate:
         c = float(b) - float(a)
         return c
 
-    def sub(self, a):
-        return -float(a)
+    def sub1(self, a):
+        return float(-a)
 
     def mult(self, a, b):
         c = float(a) * float(b)
@@ -88,6 +87,18 @@ class Calculate:
         c = float(a) ** float(b)
         return c
 
+    def sin(self, a):
+        c = math.sin(float(a))
+        return c
+
+    def cos(self, a):
+        c = math.cos(float(a))
+        return c
+
+    def tan(self, a):
+        c = math.tan(float(a))
+        return c
+
     # processing
     def outProcess(self, output):
         try:
@@ -96,13 +107,13 @@ class Calculate:
             num1 = 0
             num2 = 0
             for token in output:
-                if token.isalnum():
+                if token.isalnum() and token not in self.funcs:
                     stack.append(token)
                 elif token in self.ops and peek(stack) in self.ops:
                     return "error"
                 elif token == '-' and len(stack) == 1:
                     num1 = pop(stack)
-                    total = self.sub(num1)
+                    total = self.sub1(num1)
                     stack.append(total)
                 elif token == '-':
                     num1 = pop(stack)
@@ -129,9 +140,22 @@ class Calculate:
                     num2 = pop(stack)
                     total = self.power(num1, num2)
                     stack.append(total)
+                elif token == 'sin':
+                    num1 = pop(stack)
+                    total = self.sin(num1)
+                    stack.append(total)
+                elif token == 'cos':
+                    num1 = pop(stack)
+                    total = self.cos(num1)
+                    stack.append(total)
+                elif token == 'tan':
+                    num1 = pop(stack)
+                    total = self.tan(num1)
+                    stack.append(total)
             return total
         except:
             return "error"
+
     # main shunting yard algorithm
 
     def process(self):
@@ -141,10 +165,10 @@ class Calculate:
                 stack = []
                 output = []
                 for token in str.split(self.expression):
-                    if token.isalnum():
+                    if token in self.funcs:
+                        stack.append(token)
+                    elif token.isalnum():
                         output.append(token)
-                    elif token in self.funcs:
-                        stack.append(stack)
                     elif token in self.ops:
                         while (peek(stack) in self.ops and
                                precendence(self, peek(stack)) > precendence(self, token) or
